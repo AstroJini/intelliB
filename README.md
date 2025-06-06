@@ -106,7 +106,7 @@
 
 ## 🔎 4. DB 모델링
 
-> ✅ *추후 추가 예정*
+![DB_AI_FIXED](https://github.com/user-attachments/assets/7d3ec1ea-9b80-4d37-a9a7-a62cbf11a4ee)
 
 ---
 
