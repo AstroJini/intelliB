@@ -126,8 +126,9 @@ AI를 통해 개인의 역량을 분석하고, 기업의 니즈에 정밀하게 
 ![DB_AI_FIXED (2)](https://github.com/user-attachments/assets/2a365604-e41c-4d87-adbb-b24c9698123e)
 
 ### 데이터베이스 아키텍처 및 복제 구성
-
-![image](https://github.com/user-attachments/assets/f32b518f-c344-4669-81d8-d7abfe363bfd)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f32b518f-c344-4669-81d8-d7abfe363bfd" alt="Demo" width="400" />
+</p>
 
 #### 1. Master-Slave 구조
 - **Master 노드**  
