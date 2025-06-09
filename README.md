@@ -995,7 +995,8 @@ DELIMITER ;
 ### 테스트 케이스 정의서
 
 <details>
-<summury> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summury>
+<summary> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summary>
+```
 SELECT
   s.skill_name   AS 스킬명,
   us.skill_level AS 레벨,
@@ -1003,11 +1004,12 @@ SELECT
 FROM user_skill us
 JOIN skill_list s ON us.skill_id = s.skill_id
 WHERE us.member_id = '1e0cc793-43c2-11f0-a5ac-00155dfa4261';
+```
 </details>
 
 <details>
-  <summury>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summury>
-
+  <summary>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summary>
+```
 SELECT DISTINCT
   c.company_name AS 회사명,
   jp.title        AS 공고제목
@@ -1017,11 +1019,12 @@ JOIN job_posting_list jp ON dpo.job_posting_id = jp.job_posting_id
 JOIN company_branch_list b ON jp.branch_id = b.branch_id
 JOIN company_list c ON b.company_id = c.company_id
 WHERE o.option_name = 'Remote';
+```
 </details>
 
 <details>
-<summury>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summury>
-
+<summary>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summary>
+```
 SELECT
   b.branch_name    AS 지점명,
   tr.trait_name    AS 성향명,
@@ -1030,11 +1033,12 @@ FROM branch_preferences bp
 JOIN company_branch_list b ON bp.branch_id = b.branch_id
 JOIN trait_list tr ON bp.trait_id = tr.trait_id
 ORDER BY b.branch_name, tr.trait_name;
+```
 </details>
 
 <details>
-  <summury>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summury>
-
+  <summary>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summary>
+```
 SELECT
   u.name                           AS 사용자명,
   cp.type_name                     AS 회사유형,
@@ -1052,11 +1056,12 @@ LEFT JOIN trait_list tr ON uc.trait_id = tr.trait_id
 LEFT JOIN user_prefered_job uj ON up.user_preference_id = uj.user_preference_id
 LEFT JOIN job_list j ON uj.job_role_id = j.job_role_id
 GROUP BY up.user_preference_id;
+```
 </details>
 
 <details>
-  <summury>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summury>
-
+  <summary>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summary>
+```
 SELECT
   b.branch_name      AS 지점명,
   d.department_name  AS 부서명,
@@ -1066,11 +1071,12 @@ FROM department_preferences dp
 JOIN company_branch_department d ON dp.department_id = d.department_id
 JOIN company_branch_list b ON d.branch_id = b.branch_id
 JOIN trait_list tr ON dp.trait_id = tr.trait_id;
+```
 </details>
 
 <details>
-  <summury>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summury>
-
+  <summary>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summary>
+```
 SELECT
   u.name            AS 사용자명,
   uc.company_name   AS 회사명,
@@ -1089,11 +1095,12 @@ WHERE
       FROM user_career
      WHERE user_id = uc.user_id
   );
+```
 </details>
 
 <details>
-  <summury>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summury>
-
+  <summary>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summary>
+```
 SELECT
   u.user_id                     AS 사용자ID,
   u.name                        AS 사용자명,
@@ -1120,11 +1127,12 @@ JOIN department_preferences dp
 JOIN trait_list tr
   ON bp.trait_id = tr.trait_id
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명;
+```
 </details>
 
 <details>
-  <summury>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summury>
-
+  <summary>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summary>
+```
 SELECT
   u.user_id                     AS 사용자ID,
   u.name                        AS 사용자명,
@@ -1154,6 +1162,7 @@ JOIN job_posting_list jp
 JOIN trait_list tr
   ON bp.trait_id = tr.trait_id
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명, 공고명;
+```
 </details>
 
 ---
