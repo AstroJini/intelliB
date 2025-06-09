@@ -119,8 +119,8 @@
 
 ### 5-1. DDL (데이터 정의어)
 
-<details> -- 1. 기초 참조 테이블
-
+<details>
+  <summary>-- 1. 기초 참조 테이블</summary>
 
 ```sql
     CREATE TABLE skill_category_list (
@@ -177,8 +177,7 @@ CREATE TABLE company_type_list (
 </details>
 
 <details>
- --2. 스킬 테이블
-  
+  <summary> --2. 스킬 테이블</summary>
 ```sql
 CREATE TABLE skill_list (
     skill_id    INT UNSIGNED      NOT NULL AUTO_INCREMENT,
@@ -197,8 +196,8 @@ CREATE TABLE skill_list (
 </details>
 
 <details>
---3. 회원 관리
-  
+  <summary>--3. 회원 관리</summary>
+
 ```sql
 CREATE TABLE member_list (
     member_id     CHAR(36)    NOT NULL DEFAULT (UUID()),
@@ -243,7 +242,7 @@ CREATE TABLE user_list (
 </details>
 
 <details>
--- 4. 회사 및 지점
+  <summary>-- 4. 회사 및 지점</summary>
 
 ```sql
 CREATE TABLE company_list (
@@ -341,7 +340,7 @@ CREATE TABLE company_user_list (
 </details>
 
 <details>
--- 5. 팀 관리
+  <summary>-- 5. 팀 관리</summary>
 
 ```sql
 CREATE TABLE user_team (
@@ -371,8 +370,8 @@ CREATE TABLE user_team_detail (
 </details>
 
 <details>
---6. 추가 사용자 정보
-
+  <summary>--6. 추가 사용자 정보</summary>
+  
 ```sql
 CREATE TABLE user_reference (
     user_id         CHAR(36)     NOT NULL,
@@ -429,7 +428,7 @@ CREATE TABLE user_skill (
 </details>
 
 <details>
---7. 직무·공고·지원
+  <summary> --7. 직무·공고·지원</summary>
 
 ```sql
 CREATE TABLE job_posting_list (
@@ -529,8 +528,8 @@ CREATE TABLE job_posting_detail_option (
 </details>
 
 <details>
--- 8. 선호·옵션 설정
-
+  <summary>-- 8. 선호·옵션 설정</summary>
+  
 ```sql
 CREATE TABLE user_preference (
     user_preference_id CHAR(36)     NOT NULL DEFAULT (UUID()),
@@ -631,7 +630,8 @@ CREATE TABLE user_prefered_job (
 </details>
 
 <details>
--- 9. 기타 설정 테이블
+  <summary>-- 9. 기타 설정 테이블</summary>
+
 
 ```sql
 CREATE TABLE branch_preferences (
@@ -673,8 +673,9 @@ CREATE TABLE department_preferences (
 ```
 </details>
 
-</details>
--- 10. 도전 과제(Challenges)
+<details>
+  <summary>-- 10. 도전 과제(Challenges)</summary>
+
 
 ```sql
 CREATE TABLE company_challenges_category (
@@ -741,7 +742,8 @@ CREATE TABLE company_challenges_submit (
 </details>
 
 <details>
--- 11. 친구·차단·경력·금지 목록
+  <summary>-- 11. 친구·차단·경력·금지 목록</summary>
+
 
 ```sql
 CREATE TABLE user_friends_list (
