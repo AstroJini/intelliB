@@ -11,6 +11,7 @@
 </p>
 
 🔷 Intelli-B – Intelligent Bridge for Talent & Opportunity
+
 Intelli-B는 “Intelligent”와 “Bridge”의 합성어로,
 단순한 채용 플랫폼을 넘어 인재와 기업을 가장 똑똑하게 연결하는 지능형 다리 역할을 합니다.
 
