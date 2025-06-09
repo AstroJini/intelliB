@@ -1,4 +1,4 @@
-# be16-1st-Nullbase-projectTeam
+# be16-1st-Nullbase-IntelliB
 
 ## 🚀 행동 기반 커리어 매칭 DB 프로젝트 - 프로젝트명
 
