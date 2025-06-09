@@ -95,7 +95,7 @@
 ## 📋 2. WBS
 
 > ✅ WBS 보기
-https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?gid=0#gid=0
+
 
 [![스프레드시트 썸네일](https://github.com/beyond-sw-camp/be16-1st-Nullbase-projectTeam/blob/main/images/spreadsheet_preview.png)](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
 
@@ -104,7 +104,9 @@ https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn
 
 ## 🧾 3. 요구사항 명세서
 
-> ✅ *추후 추가 예정*
+> ✅ 요구사항 명세서 
+
+[![스프레드시트 썸네일](https://github.com/beyond-sw-camp/be16-1st-Nullbase-projectTeam/blob/main/images/meeting_spreadsheet_preview.png)](https://docs.google.com/spreadsheets/d/1AOHNwO3hZ75bkLxjJUvlybHucFR371B5GThIEw2e2tg/edit?usp=sharing)
 
 ---
 
