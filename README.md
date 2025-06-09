@@ -96,7 +96,7 @@
 
 > ✅ WBS 보기
 ![image](https://github.com/user-attachments/assets/5c37f5ef-f581-4563-8e6a-21801e7a11b6)
-[![스프레드시트 링크](https://github.com/beyond-sw-camp/be16-1st-Nullbase-projectTeam/blob/main/images/spreadsheet_preview.png)](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
+[![스프레드시트 링크]](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
 
 
 ---
