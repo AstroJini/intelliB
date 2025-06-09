@@ -994,7 +994,7 @@ DELIMITER ;
 
 ### 테스트 케이스 정의서
 
-<detail>
+<details>
 <summury> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summury>
 SELECT
   s.skill_name   AS 스킬명,
@@ -1003,9 +1003,9 @@ SELECT
 FROM user_skill us
 JOIN skill_list s ON us.skill_id = s.skill_id
 WHERE us.member_id = '1e0cc793-43c2-11f0-a5ac-00155dfa4261';
-</detail>
+</details>
 
-<detail>
+<details>
   <summury>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summury>
 
 SELECT DISTINCT
@@ -1019,7 +1019,7 @@ JOIN company_list c ON b.company_id = c.company_id
 WHERE o.option_name = 'Remote';
 </details>
 
-<detail>
+<details>
 <summury>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summury>
 
 SELECT
@@ -1032,7 +1032,7 @@ JOIN trait_list tr ON bp.trait_id = tr.trait_id
 ORDER BY b.branch_name, tr.trait_name;
 </details>
 
-<detail>
+<details>
   <summury>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summury>
 
 SELECT
@@ -1054,7 +1054,7 @@ LEFT JOIN job_list j ON uj.job_role_id = j.job_role_id
 GROUP BY up.user_preference_id;
 </details>
 
-<detail>
+<details>
   <summury>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summury>
 
 SELECT
@@ -1068,7 +1068,7 @@ JOIN company_branch_list b ON d.branch_id = b.branch_id
 JOIN trait_list tr ON dp.trait_id = tr.trait_id;
 </details>
 
-<detail>
+<details>
   <summury>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summury>
 
 SELECT
@@ -1091,7 +1091,7 @@ WHERE
   );
 </details>
 
-<detail>
+<details>
   <summury>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summury>
 
 SELECT
@@ -1122,7 +1122,7 @@ JOIN trait_list tr
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명;
 </details>
 
-<detail>
+<details>
   <summury>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summury>
 
 SELECT
