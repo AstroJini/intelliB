@@ -987,8 +987,8 @@ DELIMITER ;
 
 ### 5-2. DML (데이터 조작어)
 
-> ✅ DML LINK
-DML\dml.sql
+📁 [DML 파일 바로가기](./DML/)
+
 
 ---
 
