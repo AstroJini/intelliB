@@ -119,8 +119,8 @@
 
 ### 5-1. DDL (데이터 정의어)
 
-<details>
- -- 1. 기초 참조 테이블
+<details> -- 1. 기초 참조 테이블
+
 
 ```sql
     CREATE TABLE skill_category_list (
