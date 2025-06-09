@@ -996,7 +996,7 @@ DELIMITER ;
 
 <details>
 <summary> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summary>
-```
+```sql
 SELECT
   s.skill_name   AS 스킬명,
   us.skill_level AS 레벨,
@@ -1009,7 +1009,7 @@ WHERE us.member_id = '1e0cc793-43c2-11f0-a5ac-00155dfa4261';
 
 <details>
   <summary>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summary>
-```
+```sql
 SELECT DISTINCT
   c.company_name AS 회사명,
   jp.title        AS 공고제목
@@ -1024,7 +1024,7 @@ WHERE o.option_name = 'Remote';
 
 <details>
 <summary>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summary>
-```
+```sql
 SELECT
   b.branch_name    AS 지점명,
   tr.trait_name    AS 성향명,
@@ -1038,7 +1038,7 @@ ORDER BY b.branch_name, tr.trait_name;
 
 <details>
   <summary>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summary>
-```
+```sql
 SELECT
   u.name                           AS 사용자명,
   cp.type_name                     AS 회사유형,
@@ -1061,7 +1061,7 @@ GROUP BY up.user_preference_id;
 
 <details>
   <summary>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summary>
-```
+```sql
 SELECT
   b.branch_name      AS 지점명,
   d.department_name  AS 부서명,
@@ -1076,7 +1076,7 @@ JOIN trait_list tr ON dp.trait_id = tr.trait_id;
 
 <details>
   <summary>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summary>
-```
+```sql
 SELECT
   u.name            AS 사용자명,
   uc.company_name   AS 회사명,
@@ -1100,7 +1100,7 @@ WHERE
 
 <details>
   <summary>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summary>
-```
+```sql
 SELECT
   u.user_id                     AS 사용자ID,
   u.name                        AS 사용자명,
@@ -1132,7 +1132,7 @@ ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명;
 
 <details>
   <summary>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summary>
-```
+```sql
 SELECT
   u.user_id                     AS 사용자ID,
   u.name                        AS 사용자명,
