@@ -112,6 +112,8 @@
 
 ### 데이터베이스 아키텍처 및 복제 구성
 
+![image](https://github.com/user-attachments/assets/f32b518f-c344-4669-81d8-d7abfe363bfd)
+
 #### 1. Master-Slave 구조
 - **Master 노드**  
   - 모든 쓰기 작업(INSERT, UPDATE, DELETE)을 처리하여 데이터 정합성을 보장합니다.  
@@ -138,6 +140,15 @@
 
 <details>
   <summary>-- 1. 기초 참조 테이블</summary>
+
+해당 테이블들은 다른 테이블에서 공통적으로 사용되는 기본 카테고리나 목록성 데이터를 저장하여 데이터의 일관성을 유지합니다.
+
+- skill_category_list: 스킬의 대분류(예: 프로그래밍 언어, 프레임워크, 툴)를 관리합니다.
+- option_category_list: 채용 공고나 사용자 선호도에 사용될 옵션의 카테고리(예: 근무 형태, 복지)를 저장합니다.
+- trait_list: 기업 문화나 인재상을 나타내는 특성(예: 수평적 문화, 성과 중심) 목록을 관리합니다.
+- certificate_list: 자격증의 이름과 발급 기관 정보를 저장합니다.
+- job_list: 다양한 직무(예: 백엔드 개발자, 프론트엔드 개발자) 목록을 관리합니다.
+- company_type_list: 회사의 유형(예: 대기업, 스타트업, 중소기업)을 정의합니다.
 
 ```sql
     CREATE TABLE skill_category_list (
@@ -195,6 +206,10 @@ CREATE TABLE company_type_list (
 
 <details>
   <summary> --2. 스킬 테이블</summary>
+
+- skill_list: 개별 스킬 정보를 저장합니다. skill_category_list와 연결되어 어떤 카테고리에 속하는 스킬인지 명시합니다. 
+ 카테고리가 삭제되면 해당 카테고리의 스킬은 삭제되지 않도록 ON DELETE RESTRICT 제약조건이 설정되어 있습니다.
+  
 ```sql
 CREATE TABLE skill_list (
     skill_id    INT UNSIGNED      NOT NULL AUTO_INCREMENT,
@@ -214,6 +229,13 @@ CREATE TABLE skill_list (
 
 <details>
   <summary>--3. 회원 관리</summary>
+
+  회원 정보를 역할에 따라 구조적으로 관리합니다.
+
+- member_list: 시스템의 모든 회원(관리자, 일반 사용자, 기업)을 통합 관리하는 최상위 테이블입니다. role 컬럼을 통해 회원의 역할을 구분합니다.
+- admin_list: 관리자 계정의 상세 정보를 저장하며, member_list에 외래 키로 연결됩니다.
+- user_list: 일반 사용자(구직자)의 개인 정보(이름, 생년월일, 연락처 등)를 관리합니다. 
+- member_list에 연결되며, 회원 탈퇴 시 관련 정보가 함께 삭제되도록 ON DELETE CASCADE가 설정되어 있습니다.
 
 ```sql
 CREATE TABLE member_list (
@@ -261,6 +283,14 @@ CREATE TABLE user_list (
 <details>
   <summary>-- 4. 회사 및 지점</summary>
 
+ 회사, 지점, 부서 및 회사 소속 사용자 정보를 관리합니다.
+ 
+- company_list: 기업의 기본 정보(회사명, 홈페이지, 설립 연도 등)를 저장합니다.
+- company_branch_list: 각 회사의 지점 정보를 관리합니다. 본사 여부를 is_main_branch로 표시합니다.
+- company_branch_department: 특정 지점 내의 부서 정보를 저장합니다.
+- company_user_list: 기업 회원(예: 인사 담당자)의 정보를 관리합니다. member_list의 하위 테이블로서 기업 회원의 상세 정보를 담고 있으며, 
+ 특정 지점(branch_id)과 회사(company_id)에 소속됩니다.
+ 
 ```sql
 CREATE TABLE company_list (
     company_id      CHAR(36)     NOT NULL DEFAULT (UUID()),
@@ -359,6 +389,11 @@ CREATE TABLE company_user_list (
 <details>
   <summary>-- 5. 팀 관리</summary>
 
+  사용자들이 구성하는 팀 정보를 관리합니다.
+
+- user_team: 사용자들이 생성한 팀의 기본 정보를 저장합니다.
+- user_team_detail: 어떤 사용자가 어떤 팀에 속해 있는지, 그리고 팀의 리더인지 여부를 저장하는 연결 테이블입니다.
+
 ```sql
 CREATE TABLE user_team (
     team_id   CHAR(36)     NOT NULL DEFAULT (UUID()),
@@ -388,6 +423,12 @@ CREATE TABLE user_team_detail (
 
 <details>
   <summary>--6. 추가 사용자 정보</summary>
+
+사용자의 전문성과 관련된 상세 정보를 관리합니다.
+
+- user_reference: 사용자의 외부 전문 활동 링크(GitHub, 백준 등)와 전문 분야를 저장합니다.
+- user_certificate_detail: 사용자가 취득한 자격증의 상세 정보(취득일, 증명서 번호)를 관리하는 연결 테이블입니다.
+- user_skill: 사용자가 보유한 스킬과 해당 스킬의 숙련도 및 경력 기간을 저장하는 연결 테이블입니다  
   
 ```sql
 CREATE TABLE user_reference (
@@ -446,6 +487,13 @@ CREATE TABLE user_skill (
 
 <details>
   <summary> --7. 직무·공고·지원</summary>
+
+  채용 공고 등록부터 지원까지의 과정을 관리합니다.
+
+- job_posting_list: 기업이 등록한 채용 공고의 상세 내용을 저장합니다. 공고 상태(status), 급여(salary), 요구 경력(required_career) 등의 정보를 포함합니다.
+- job_application_list: 사용자가 채용 공고에 지원한 내역을 관리합니다. 지원 동기, 경력 계획 등의 정보를 포함합니다.
+- option_list: 채용 공고에 추가될 세부 옵션(예: 재택근무, 유연근무제)을 정의합니다. option_category_list에 연결됩니다.
+- job_posting_detail_option: 채용 공고와 세부 옵션을 연결해주는 테이블입니다.
 
 ```sql
 CREATE TABLE job_posting_list (
@@ -546,7 +594,14 @@ CREATE TABLE job_posting_detail_option (
 
 <details>
   <summary>-- 8. 선호·옵션 설정</summary>
-  
+
+  사용자의 구직 선호도를 관리하여 맞춤형 추천에 활용합니다.
+
+- user_preference: 사용자가 선호하는 회사의 유형, 희망 연봉 범위 등을 저장합니다.
+- user_preference_option: 사용자의 선호도와 세부 옵션(option_list)을 연결합니다.
+- user_preferred_culture: 사용자가 선호하는 기업 문화(trait_list)를 저장합니다.
+- user_prefered_job: 사용자가 선호하는 직무(job_list)와 회사 유형을 연결합니다.  
+
 ```sql
 CREATE TABLE user_preference (
     user_preference_id CHAR(36)     NOT NULL DEFAULT (UUID()),
@@ -649,6 +704,10 @@ CREATE TABLE user_prefered_job (
 <details>
   <summary>-- 9. 기타 설정 테이블</summary>
 
+  기업의 지점 및 부서별 특성을 관리합니다.
+
+- branch_preferences: 회사 지점별 문화적 특성(trait_list)을 저장합니다.
+- department_preferences: 지점 내 부서별 문화적 특성(trait_list)을 저장합니다.
 
 ```sql
 CREATE TABLE branch_preferences (
@@ -693,6 +752,11 @@ CREATE TABLE department_preferences (
 <details>
   <summary>-- 10. 도전 과제(Challenges)</summary>
 
+  기업이 주최하는 코딩 과제나 챌린지 정보를 관리합니다.
+
+- company_challenges_category: 기업 챌린지의 카테고리를 정의합니다.
+- company_challenges_list: 기업이 등록한 챌린지의 목록을 관리합니다.
+- company_challenges_submit: 사용자가 챌린지에 제출한 내역을 관리하며, 개인 제출과 팀 제출을 모두 지원합니다
 
 ```sql
 CREATE TABLE company_challenges_category (
@@ -761,6 +825,12 @@ CREATE TABLE company_challenges_submit (
 <details>
   <summary>-- 11. 친구·차단·경력·금지 목록</summary>
 
+  용자 간의 관계, 경력, 그리고 제재 내역을 관리합니다.
+
+- user_friends_list: 사용자 간의 '팔로우' 관계를 관리합니다. 스스로를 팔로우할 수 없도록 트리거가 설정되어 있습니다.
+- user_banned_list: 사용자가 특정 사용자를 차단한 목록을 관리합니다.
+- user_career: 사용자의 상세 경력 사항을 관리합니다.
+- banned_list: 관리자가 특정 회원을 활동 정지시킨 내역을 관리합니다. 관리자 자신을 정지시킬 수 없도록 트리거가 설정되어 있습니다.
 
 ```sql
 CREATE TABLE user_friends_list (
