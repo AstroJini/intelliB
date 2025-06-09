@@ -992,13 +992,169 @@ DELIMITER ;
 
 ## ✍🏻 6. 테스트 케이스
 
-### 6-1. 테스트 케이스 정의서
+### 테스트 케이스 정의서
 
-> ✅ *추후 추가 예정*
+<detail>
+<summury> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summury>
+SELECT
+  s.skill_name   AS 스킬명,
+  us.skill_level AS 레벨,
+  us.experience_years AS 경력
+FROM user_skill us
+JOIN skill_list s ON us.skill_id = s.skill_id
+WHERE us.member_id = '1e0cc793-43c2-11f0-a5ac-00155dfa4261';
+</detail>
 
-### 6-2. 주요 쿼리문
+<detail>
+  <summury>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summury>
 
-> ✅ *추후 추가 예정*
+SELECT DISTINCT
+  c.company_name AS 회사명,
+  jp.title        AS 공고제목
+FROM job_posting_detail_option dpo
+JOIN option_list o ON dpo.option_id = o.option_id
+JOIN job_posting_list jp ON dpo.job_posting_id = jp.job_posting_id
+JOIN company_branch_list b ON jp.branch_id = b.branch_id
+JOIN company_list c ON b.company_id = c.company_id
+WHERE o.option_name = 'Remote';
+</details>
+
+<detail>
+<summury>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summury>
+
+SELECT
+  b.branch_name    AS 지점명,
+  tr.trait_name    AS 성향명,
+  bp.description   AS 설명
+FROM branch_preferences bp
+JOIN company_branch_list b ON bp.branch_id = b.branch_id
+JOIN trait_list tr ON bp.trait_id = tr.trait_id
+ORDER BY b.branch_name, tr.trait_name;
+</details>
+
+<detail>
+  <summury>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summury>
+
+SELECT
+  u.name                           AS 사용자명,
+  cp.type_name                     AS 회사유형,
+  CONCAT(up.min_salary,'~',up.max_salary) AS 연봉범위,
+  GROUP_CONCAT(DISTINCT o.option_name)    AS 옵션목록,
+  GROUP_CONCAT(DISTINCT tr.trait_name)    AS 성향목록,
+  GROUP_CONCAT(DISTINCT j.role_name)      AS 희망직무
+FROM user_preference up
+JOIN user_list u ON up.user_id = u.user_id
+JOIN company_type_list cp ON up.company_type_id = cp.company_type_id
+LEFT JOIN user_preference_option upo ON up.user_preference_id = upo.user_preference_id
+LEFT JOIN option_list o ON upo.option_id = o.option_id
+LEFT JOIN user_preferred_culture uc ON up.user_preference_id = uc.user_preference_id
+LEFT JOIN trait_list tr ON uc.trait_id = tr.trait_id
+LEFT JOIN user_prefered_job uj ON up.user_preference_id = uj.user_preference_id
+LEFT JOIN job_list j ON uj.job_role_id = j.job_role_id
+GROUP BY up.user_preference_id;
+</details>
+
+<detail>
+  <summury>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summury>
+
+SELECT
+  b.branch_name      AS 지점명,
+  d.department_name  AS 부서명,
+  tr.trait_name      AS 성향명,
+  dp.description     AS 설명
+FROM department_preferences dp
+JOIN company_branch_department d ON dp.department_id = d.department_id
+JOIN company_branch_list b ON d.branch_id = b.branch_id
+JOIN trait_list tr ON dp.trait_id = tr.trait_id;
+</details>
+
+<detail>
+  <summury>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summury>
+
+SELECT
+  u.name            AS 사용자명,
+  uc.company_name   AS 회사명,
+  uc.position       AS 직위,
+  CASE
+    WHEN uc.end_date IS NULL THEN '재직중'
+    ELSE DATE_FORMAT(uc.end_date, '%Y-%m-%d')
+  END AS 종료일
+FROM user_career uc
+JOIN user_list u
+  ON uc.user_id = u.user_id
+WHERE
+  uc.end_date IS NULL
+  OR uc.end_date = (
+    SELECT MAX(end_date)
+      FROM user_career
+     WHERE user_id = uc.user_id
+  );
+</details>
+
+<detail>
+  <summury>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summury>
+
+SELECT
+  u.user_id                     AS 사용자ID,
+  u.name                        AS 사용자명,
+  c.company_name                AS 회사명,
+  b.branch_name                 AS 지점명,
+  d.department_name             AS 부서명,
+  tr.trait_name                 AS 매칭성향,
+  COUNT(tr.trait_id) OVER (PARTITION BY u.user_id, b.branch_id, d.department_id) AS 매칭성향갯수
+FROM user_preferred_culture uc
+JOIN user_preference up
+  ON uc.user_preference_id = up.user_preference_id
+JOIN user_list u
+  ON up.user_id = u.user_id
+JOIN branch_preferences bp
+  ON uc.trait_id = bp.trait_id
+JOIN company_branch_list b
+  ON bp.branch_id = b.branch_id
+JOIN company_list c
+  ON b.company_id = c.company_id
+JOIN company_branch_department d
+  ON b.branch_id = d.branch_id
+JOIN department_preferences dp
+  ON d.department_id = dp.department_id AND uc.trait_id = dp.trait_id
+JOIN trait_list tr
+  ON bp.trait_id = tr.trait_id
+ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명;
+</details>
+
+<detail>
+  <summury>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summury>
+
+SELECT
+  u.user_id                     AS 사용자ID,
+  u.name                        AS 사용자명,
+  c.company_name                AS 회사명,
+  b.branch_name                 AS 지점명,
+  d.department_name             AS 부서명,
+  jp.title                      AS 공고명,
+  tr.trait_name                 AS 매칭성향,
+  COUNT(tr.trait_id) OVER (PARTITION BY u.user_id, b.branch_id, d.department_id, jp.job_posting_id) AS 매칭성향갯수
+FROM user_preferred_culture uc
+JOIN user_preference up
+  ON uc.user_preference_id = up.user_preference_id
+JOIN user_list u
+  ON up.user_id = u.user_id
+JOIN branch_preferences bp
+  ON uc.trait_id = bp.trait_id
+JOIN company_branch_list b
+  ON bp.branch_id = b.branch_id
+JOIN company_list c
+  ON b.company_id = c.company_id
+JOIN company_branch_department d
+  ON b.branch_id = d.branch_id
+JOIN department_preferences dp
+  ON d.department_id = dp.department_id AND uc.trait_id = dp.trait_id
+JOIN job_posting_list jp
+  ON jp.branch_id = b.branch_id
+JOIN trait_list tr
+  ON bp.trait_id = tr.trait_id
+ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명, 공고명;
+</details>
 
 ---
 
