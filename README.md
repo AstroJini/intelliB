@@ -94,7 +94,11 @@
 
 ## 📋 2. WBS
 
-> ✅ *추후 추가 예정*
+> ✅ WBS 보기
+https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?gid=0#gid=0
+
+[![스프레드시트 썸네일](https://github.com/beyond-sw-camp/be16-1st-Nullbase-projectTeam/blob/main/images/spreadsheet_preview.png)](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
+
 
 ---
 
