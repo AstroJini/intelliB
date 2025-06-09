@@ -996,6 +996,7 @@ DELIMITER ;
 
 <details>
 <summary> -- 1. Alice Kim 스킬 현황 (스킬명, 레벨, 경력年)</summary>
+  
 ```sql
 SELECT
   s.skill_name   AS 스킬명,
@@ -1005,10 +1006,13 @@ FROM user_skill us
 JOIN skill_list s ON us.skill_id = s.skill_id
 WHERE us.member_id = '1e0cc793-43c2-11f0-a5ac-00155dfa4261';
 ```
+![image](https://github.com/user-attachments/assets/b70c1f01-ca7d-41ec-8e61-13dd688071d8)
+
 </details>
 
 <details>
   <summary>-- 2. Remote 옵션 포함 공고 (회사명, 공고제목)</summary>
+  
 ```sql
 SELECT DISTINCT
   c.company_name AS 회사명,
@@ -1020,10 +1024,13 @@ JOIN company_branch_list b ON jp.branch_id = b.branch_id
 JOIN company_list c ON b.company_id = c.company_id
 WHERE o.option_name = 'Remote';
 ```
+![image2](https://github.com/user-attachments/assets/4e6d84ac-71ca-4ecd-9a5f-88d8a5761cb9)
+
 </details>
 
 <details>
 <summary>-- 3. 지점별 선호 성향 (지점명, 성향명, 설명)</summary>
+  
 ```sql
 SELECT
   b.branch_name    AS 지점명,
@@ -1034,10 +1041,13 @@ JOIN company_branch_list b ON bp.branch_id = b.branch_id
 JOIN trait_list tr ON bp.trait_id = tr.trait_id
 ORDER BY b.branch_name, tr.trait_name;
 ```
+![image3](https://github.com/user-attachments/assets/6cc53ae5-4d39-448f-84f4-2c764ee3e888)
+
 </details>
 
 <details>
   <summary>-- 4. 사용자별 선호 요약 (사용자명, 회사유형, 연봉범위, 옵션목록, 성향목록, 희망직무)</summary>
+  
 ```sql
 SELECT
   u.name                           AS 사용자명,
@@ -1057,10 +1067,13 @@ LEFT JOIN user_prefered_job uj ON up.user_preference_id = uj.user_preference_id
 LEFT JOIN job_list j ON uj.job_role_id = j.job_role_id
 GROUP BY up.user_preference_id;
 ```
+![image4](https://github.com/user-attachments/assets/f1a0c2fd-c3ed-414a-aa44-e66700bfb7ac)
+
 </details>
 
 <details>
   <summary>-- 5. 지점별 부서별 선호 (지점명, 부서명, 성향, 설명)</summary>
+  
 ```sql
 SELECT
   b.branch_name      AS 지점명,
@@ -1072,10 +1085,13 @@ JOIN company_branch_department d ON dp.department_id = d.department_id
 JOIN company_branch_list b ON d.branch_id = b.branch_id
 JOIN trait_list tr ON dp.trait_id = tr.trait_id;
 ```
+![image5](https://github.com/user-attachments/assets/22dd369c-8df8-4cf1-88ce-2f564df4f237)
+
 </details>
 
 <details>
   <summary>-- 6. 사용자별 최근 경력 (사용자명, 회사명, 직위, 종료일)</summary>
+  
 ```sql
 SELECT
   u.name            AS 사용자명,
@@ -1096,10 +1112,13 @@ WHERE
      WHERE user_id = uc.user_id
   );
 ```
+![image6](https://github.com/user-attachments/assets/5cc5797c-2039-4b44-a7fc-4a72631a3c29)
+
 </details>
 
 <details>
   <summary>-- 7. 사용자별 선호하는 회사, 지점, 부서와의 매칭 결과</summary>
+  
 ```sql
 SELECT
   u.user_id                     AS 사용자ID,
@@ -1128,10 +1147,13 @@ JOIN trait_list tr
   ON bp.trait_id = tr.trait_id
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명;
 ```
+![image8](https://github.com/user-attachments/assets/7563badb-41bf-4ca6-9a1a-f4737e969dcf)
+
 </details>
 
 <details>
   <summary>-- 8. 사용자별 선호하는 회사, 지점, 부서, 공고와의 매칭 결과</summary>
+  
 ```sql
 SELECT
   u.user_id                     AS 사용자ID,
@@ -1163,6 +1185,8 @@ JOIN trait_list tr
   ON bp.trait_id = tr.trait_id
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명, 공고명;
 ```
+![Uploading image9.png…]()
+
 </details>
 
 ---
