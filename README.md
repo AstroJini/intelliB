@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9c61e1c6-4a2e-4e6e-8034-d24c82bac61a" alt="Demo" width="400" />
+  <img src="https://github.com/user-attachments/assets/1301345c-a698-4bb4-ab5e-26e922dd51d1" alt="Demo" width="400" />
 </p>
 
 🔷 Intelli-B – Intelligent Bridge for Talent & Opportunity
