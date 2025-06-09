@@ -804,11 +804,12 @@ DELIMITER ;
 ---
 
 ## 🎮 7. 기술 스택
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![EC2](https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=Linux&logoColor=white)
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 
-- DBMS: MariaDB  
-- 모델링 도구: [ERDCloud](https://www.erdcloud.com/)  
-- 문서화: Notion  
-- 버전 관리: Git, GitHub  
 
 ---
 
