@@ -122,11 +122,11 @@
 
 > ✅ *추후 추가 예정*
 > -- 1. 기초 참조 테이블
-CREATE TABLE skill_category_list (
+`CREATE TABLE skill_category_list (
     skill_category_id   INT UNSIGNED      NOT NULL AUTO_INCREMENT,
     skill_category_name VARCHAR(100)      NOT NULL UNIQUE,
     PRIMARY KEY (skill_category_id)
-); 
+);` 
 
 CREATE TABLE option_category_list (
     option_category_id          INT UNSIGNED      NOT NULL AUTO_INCREMENT,
