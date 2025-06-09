@@ -94,9 +94,9 @@
 
 ## 📋 2. WBS
 
-> 
+> ✅ WBS
 ![image](https://github.com/user-attachments/assets/5c37f5ef-f581-4563-8e6a-21801e7a11b6)
-[![스프레드시트 링크]](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
+[스프레드시트 링크](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
 
 
 ---
@@ -105,7 +105,7 @@
 
 > ✅ 요구사항 명세서 
 ![image](https://github.com/user-attachments/assets/c7031567-e038-455a-99e0-bb6c5b0d7c8f)
-[![스프레드시트 링크]](https://docs.google.com/spreadsheets/d/1AOHNwO3hZ75bkLxjJUvlybHucFR371B5GThIEw2e2tg/edit?usp=sharing)
+[스프레드시트 링크](https://docs.google.com/spreadsheets/d/1AOHNwO3hZ75bkLxjJUvlybHucFR371B5GThIEw2e2tg/edit?usp=sharing)
 
 ---
 
@@ -121,49 +121,65 @@
 
 <details>
  -- 1. 기초 참조 테이블
-CREATE TABLE skill_category_list (
-    skill_category_id   INT UNSIGNED      NOT NULL AUTO_INCREMENT,
-    skill_category_name VARCHAR(100)      NOT NULL UNIQUE,
-    PRIMARY KEY (skill_category_id)
-);
 
+```sql
+    CREATE TABLE skill_category_list (
+      skill_category_id   INT UNSIGNED      NOT NULL AUTO_INCREMENT,
+      skill_category_name VARCHAR(100)      NOT NULL UNIQUE,
+      PRIMARY KEY (skill_category_id)
+      );
+```
+
+```sql
 CREATE TABLE option_category_list (
     option_category_id          INT UNSIGNED      NOT NULL AUTO_INCREMENT,
     option_category_name        VARCHAR(100)      NOT NULL UNIQUE,
     option_category_description VARCHAR(255),
     PRIMARY KEY (option_category_id)
 );
+```
 
+```sql
 CREATE TABLE trait_list (
     trait_id   INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     trait_name VARCHAR(100)   NOT NULL UNIQUE,
     description VARCHAR(255),
     PRIMARY KEY (trait_id)
-); 
+);
+```
 
+```sql
 CREATE TABLE certificate_list (
     cert_id     INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     cert_name   VARCHAR(255)   NOT NULL,
     cert_issuer VARCHAR(255)   NOT NULL,
     PRIMARY KEY (cert_id),
     UNIQUE KEY ux_cert_name_issuer (cert_name, cert_issuer)
-); 
+);
+```
 
+```sql
 CREATE TABLE job_list (
     job_role_id INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     role_name   VARCHAR(255)   NOT NULL UNIQUE,
     PRIMARY KEY (job_role_id)
-); 
+);
+```
+
+```sql
 CREATE TABLE company_type_list (
     company_type_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     type_name       VARCHAR(50)   NOT NULL UNIQUE,
     description     VARCHAR(255),
     PRIMARY KEY (company_type_id)
 );
+```
 </details>
 
 <details>
  --2. 스킬 테이블
+  
+```sql
 CREATE TABLE skill_list (
     skill_id    INT UNSIGNED      NOT NULL AUTO_INCREMENT,
     category_id INT UNSIGNED      NOT NULL,
@@ -176,18 +192,24 @@ CREATE TABLE skill_list (
         ON UPDATE CASCADE
         ON DELETE RESTRICT                            -- 카테고리 삭제 시 스킬 보존
 );
+```
+
 </details>
 
 <details>
 --3. 회원 관리
+  
+```sql
 CREATE TABLE member_list (
     member_id     CHAR(36)    NOT NULL DEFAULT (UUID()),
     role          ENUM('admin','user','company') NOT NULL DEFAULT 'user',
     registered_at DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (member_id),
     INDEX idx_member_role (role)  -- 역할별 조회를 위해 인덱스 추가
-); 
+);
+```
 
+```sql
 CREATE TABLE admin_list (
     admin_id      CHAR(36)    NOT NULL,
     created_at    DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -199,7 +221,9 @@ CREATE TABLE admin_list (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+```
 
+```sql
 CREATE TABLE user_list (
     user_id      CHAR(36)     NOT NULL DEFAULT (UUID()),
     name         VARCHAR(100) NOT NULL,
@@ -214,11 +238,14 @@ CREATE TABLE user_list (
         REFERENCES member_list(member_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE                                -- 회원 삭제 시 연쇄 제거
-); 
+);
+```
 </details>
 
 <details>
 -- 4. 회사 및 지점
+
+```sql
 CREATE TABLE company_list (
     company_id      CHAR(36)     NOT NULL DEFAULT (UUID()),
     company_type_id INT UNSIGNED NOT NULL,
@@ -233,8 +260,10 @@ CREATE TABLE company_list (
         REFERENCES company_type_list(company_type_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE company_branch_list (
     branch_id       CHAR(36)    NOT NULL DEFAULT (UUID()),
     company_id      CHAR(36)    NOT NULL,
@@ -258,8 +287,10 @@ CREATE TABLE company_branch_list (
         REFERENCES company_list(company_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE    -- 회사 삭제 시 지점도 함께 삭제
-); 
+);
+```
 
+```sql
 CREATE TABLE company_branch_department (
     department_id        CHAR(36)     NOT NULL DEFAULT (UUID()),
     branch_id            CHAR(36)     NOT NULL,
@@ -272,8 +303,10 @@ CREATE TABLE company_branch_department (
         REFERENCES company_branch_list(branch_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
-); 
+);
+```
 
+```sql
 CREATE TABLE company_user_list (
     company_user_id    CHAR(36)     NOT NULL DEFAULT (UUID()),
     branch_id          CHAR(36)     NOT NULL,
@@ -303,17 +336,22 @@ CREATE TABLE company_user_list (
         REFERENCES company_list(company_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 </details>
 
 <details>
 -- 5. 팀 관리
+
+```sql
 CREATE TABLE user_team (
     team_id   CHAR(36)     NOT NULL DEFAULT (UUID()),
     team_name VARCHAR(100) NOT NULL UNIQUE,  -- 팀명 중복 방지
     PRIMARY KEY (team_id)
-); 
+);
+```
 
+```sql
 CREATE TABLE user_team_detail (
     team_id          CHAR(36)     NOT NULL,
     member_id        CHAR(36)     NOT NULL,
@@ -329,10 +367,13 @@ CREATE TABLE user_team_detail (
         ON UPDATE CASCADE
         ON DELETE CASCADE                                 -- 사용자 삭제 시 상세도 함께 삭제
 );
+```
 </details>
 
 <details>
 --6. 추가 사용자 정보
+
+```sql
 CREATE TABLE user_reference (
     user_id         CHAR(36)     NOT NULL,
     github_url      VARCHAR(255) NOT NULL UNIQUE,   -- 깃허브 URL 중복 방지
@@ -344,8 +385,10 @@ CREATE TABLE user_reference (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE                       -- 사용자 삭제 시 참조도 함께 삭제
-); 
+);
+```
 
+```sql
 CREATE TABLE user_certificate_detail (
     cert_id         INT UNSIGNED NOT NULL,
     user_id         CHAR(36)     NOT NULL,
@@ -363,8 +406,10 @@ CREATE TABLE user_certificate_detail (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE                            -- 사용자 삭제 시 상세도 함께 삭제
-); 
+);
+```
 
+```sql
 CREATE TABLE user_skill (
     member_id        CHAR(36)     NOT NULL,
     skill_id         INT UNSIGNED NOT NULL,
@@ -379,11 +424,14 @@ CREATE TABLE user_skill (
         REFERENCES skill_list(skill_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 </details>
 
 <details>
 --7. 직무·공고·지원
+
+```sql
 CREATE TABLE job_posting_list (
     job_posting_id  INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     branch_id       CHAR(36)       NOT NULL,
@@ -415,8 +463,10 @@ CREATE TABLE job_posting_list (
         ON DELETE RESTRICT,
 
     CHECK (end_date >= start_date)
-); 
+);
+```
 
+```sql
 CREATE TABLE job_application_list (
     job_posting_id     INT UNSIGNED     NOT NULL,
     member_id          CHAR(36)         NOT NULL,
@@ -436,8 +486,10 @@ CREATE TABLE job_application_list (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE option_list (
     option_id           INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     option_category_id  INT UNSIGNED   NOT NULL,
@@ -449,8 +501,10 @@ CREATE TABLE option_list (
         REFERENCES option_category_list(option_category_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT                       -- 카테고리 삭제 시 옵션 남김
-); 
+);
+```
 
+```sql
 CREATE TABLE job_posting_detail_option (
     job_posting_detail_id INT UNSIGNED   NOT NULL AUTO_INCREMENT,
     job_posting_id        INT UNSIGNED   NOT NULL,
@@ -470,11 +524,14 @@ CREATE TABLE job_posting_detail_option (
         REFERENCES skill_category_list(skill_category_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 </details>
 
 <details>
 -- 8. 선호·옵션 설정
+
+```sql
 CREATE TABLE user_preference (
     user_preference_id CHAR(36)     NOT NULL DEFAULT (UUID()),
     user_id            CHAR(36)     NOT NULL,
@@ -493,8 +550,10 @@ CREATE TABLE user_preference (
         REFERENCES company_type_list(company_type_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE user_preference_option (
     option_detail_id    CHAR(36)     NOT NULL DEFAULT (UUID()),
     option_id           INT UNSIGNED NOT NULL,
@@ -519,8 +578,10 @@ CREATE TABLE user_preference_option (
         REFERENCES option_category_list(option_category_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE user_preferred_culture (
     user_culture_id    CHAR(36)     NOT NULL DEFAULT (UUID()),
     user_preference_id CHAR(36)     NOT NULL,
@@ -535,8 +596,10 @@ CREATE TABLE user_preferred_culture (
         REFERENCES trait_list(trait_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE user_prefered_job (
     job_role_id        INT UNSIGNED   NOT NULL,
     company_type_id    INT UNSIGNED   NOT NULL,
@@ -563,11 +626,14 @@ CREATE TABLE user_prefered_job (
         REFERENCES user_preference(user_preference_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
-); 
+);
+```
 </details>
 
 <details>
 -- 9. 기타 설정 테이블
+
+```sql
 CREATE TABLE branch_preferences (
     branch_id   CHAR(36)     NOT NULL,
     trait_id    INT UNSIGNED NOT NULL,
@@ -581,9 +647,10 @@ CREATE TABLE branch_preferences (
         REFERENCES trait_list(trait_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT                         -- 트레이트 삭제는 막기
-); 
+);
+```
 
-
+```sql
 CREATE TABLE department_preferences (
     preference_id CHAR(36)     NOT NULL DEFAULT (UUID()),
     department_id CHAR(36)     NOT NULL,
@@ -602,18 +669,23 @@ CREATE TABLE department_preferences (
         REFERENCES trait_list(trait_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 </details>
 
 </details>
 -- 10. 도전 과제(Challenges)
+
+```sql
 CREATE TABLE company_challenges_category (
     company_category_id   INT UNSIGNED   NOT NULL AUTO_INCREMENT,  -- 컬럼명에 _id를 붙여 PK 명명 일관성 확보
     category_name         VARCHAR(100)   NOT NULL UNIQUE,         -- 중복 카테고리명 방지
     category_description  TEXT           NOT NULL,
     PRIMARY KEY (company_category_id)
-); 
+);
+```
 
+```sql
 CREATE TABLE company_challenges_list (
     challenge_id            INT UNSIGNED    NOT NULL AUTO_INCREMENT,
     company_id              CHAR(36)        NULL,
@@ -638,8 +710,10 @@ CREATE TABLE company_challenges_list (
         REFERENCES company_user_list(company_user_id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
-); 
+);
+```
 
+```sql
 CREATE TABLE company_challenges_submit (
     submit_id     CHAR(36)     NOT NULL DEFAULT (UUID()),
     challenge_id  INT UNSIGNED NULL,
@@ -662,12 +736,14 @@ CREATE TABLE company_challenges_submit (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE SET NULL
-
-); 
+);
+```
 </details>
 
 <details>
 -- 11. 친구·차단·경력·금지 목록
+
+```sql
 CREATE TABLE user_friends_list (
     friend_id       CHAR(36)      NOT NULL DEFAULT (UUID()),      -- 고유 식별자
     member_id       CHAR(36)      NOT NULL,                       -- 요청한 사용자
@@ -687,9 +763,10 @@ CREATE TABLE user_friends_list (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE                 -- 요청받은 사용자 삭제 시 관계 제거
-); 
+);
+```
 
--- 별도 쿼리 편집 창에서 적용
+```sql
 DELIMITER $$
 
 CREATE TRIGGER trg_user_friends_ins
@@ -713,7 +790,9 @@ BEGIN
 END$$
 
 DELIMITER ;
+```
 
+```sql
 CREATE TABLE user_banned_list (
     userbanned_id   CHAR(36)      NOT NULL DEFAULT (UUID()),  -- 고유 식별자
     member_id       CHAR(36)      NOT NULL,                  -- 차단된 사용자
@@ -727,8 +806,10 @@ CREATE TABLE user_banned_list (
         REFERENCES user_list(user_id)
         ON UPDATE CASCADE
         ON DELETE CASCADE                                  -- 사용자가 삭제되면 차단 기록도 삭제
-); 
+);
+```
 
+```sql
 CREATE TABLE user_career (
     career_id         CHAR(36)    NOT NULL DEFAULT (UUID()),
     user_id           CHAR(36)    NOT NULL,
@@ -744,8 +825,10 @@ CREATE TABLE user_career (
         ON UPDATE CASCADE
         ON DELETE CASCADE,                           -- 사용자 삭제 시 경력도 함께 삭제
     CHECK (end_date IS NULL OR end_date >= start_date)  -- 날짜 논리 검증
-); 
+);
+```
 
+```sql
 CREATE TABLE banned_list (
     ban_id       CHAR(36)     NOT NULL DEFAULT (UUID()),  
     admin_id     CHAR(36)     NOT NULL,
@@ -766,8 +849,9 @@ CREATE TABLE banned_list (
         ON UPDATE CASCADE
         ON DELETE RESTRICT                         -- 참조 무결성 유지
 );
+```
 
--- 별도 쿼리 편집 창에서 적용
+```sql
 DELIMITER $$
 
 -- 동일한 admin_id와 member_id일 경우 차단 불가(자기 차단 방지)
@@ -792,6 +876,7 @@ BEGIN
 END$$
 
 DELIMITER ;
+```
 </details>
 
 ### 5-2. DML (데이터 조작어)
