@@ -985,7 +985,7 @@ DELIMITER ;
 
 ### 5-2. DML (데이터 조작어)
 
-📁 [DML 파일 바로가기](./DML/)
+📁 [DML 파일 바로가기](./DML/dml.sql)
 
 
 ---
