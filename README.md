@@ -1,4 +1,4 @@
-# be16-1st-Nullbase-IntelliB
+# be16-1st-Nullbase-Intelli-B
 
 ## 🚀 행동 기반 커리어 매칭 DB 프로젝트 - Intelli-B
 
@@ -6,8 +6,10 @@
   <strong><font size="20">IntelliJ + Bridge</font></strong>
 </p>
 
-🔷 Intellib – Intelligent Bridge for Talent & Opportunity
-Intellib는 “Intelligent”와 “Bridge”의 합성어로,
+![image](https://github.com/user-attachments/assets/9c61e1c6-4a2e-4e6e-8034-d24c82bac61a)
+
+🔷 Intelli-B – Intelligent Bridge for Talent & Opportunity
+Intelli-B는 “Intelligent”와 “Bridge”의 합성어로,
 단순한 채용 플랫폼을 넘어 인재와 기업을 가장 똑똑하게 연결하는 지능형 다리 역할을 합니다.
 
 IntelliJ처럼 직관적이고 강력한 사용 경험을 제공하며,
