@@ -111,6 +111,7 @@
 ---
 
 ## 🔎 4. DB 모델링
+![DB_AI_FIXED (2)](https://github.com/user-attachments/assets/2a365604-e41c-4d87-adbb-b24c9698123e)
 
 ![DB_AI_FIXED](https://github.com/user-attachments/assets/7d3ec1ea-9b80-4d37-a9a7-a62cbf11a4ee)
 
