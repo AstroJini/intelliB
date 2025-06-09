@@ -1185,7 +1185,8 @@ JOIN trait_list tr
   ON bp.trait_id = tr.trait_id
 ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명, 공고명;
 ```
-![Uploading image9.png…]()
+![image101010](https://github.com/user-attachments/assets/cbfc9780-b438-4714-b4db-6e54aa2324bd)
+
 
 </details>
 
