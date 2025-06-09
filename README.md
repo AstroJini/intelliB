@@ -6,7 +6,9 @@
   <strong><font size="20">IntelliJ + Bridge</font></strong>
 </p>
 
-<img src="https://github.com/user-attachments/assets/9c61e1c6-4a2e-4e6e-8034-d24c82bac61a" alt="Demo" width="400" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9c61e1c6-4a2e-4e6e-8034-d24c82bac61a" alt="Demo" width="400" />
+</p>
 
 🔷 Intelli-B – Intelligent Bridge for Talent & Opportunity
 Intelli-B는 “Intelligent”와 “Bridge”의 합성어로,
