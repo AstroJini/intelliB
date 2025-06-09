@@ -3,7 +3,7 @@
 ## 🚀 행동 기반 커리어 매칭 DB 프로젝트 - Intelli-B
 
 <p align="center">
-  <strong><font size="20">IntelliJ + Bridge</font></strong>
+  <strong><font size="20">Intelli + Bridge</font></strong>
 </p>
 
 <p align="center">
