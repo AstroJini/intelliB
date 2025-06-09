@@ -1188,6 +1188,7 @@ ORDER BY u.user_id, 매칭성향갯수 DESC, 회사명, 지점명, 부서명, �
 ![image101010](https://github.com/user-attachments/assets/cbfc9780-b438-4714-b4db-6e54aa2324bd)
 
 </details>
+
 📁 [프로시저 파일 바로가기](./PROCEDURE/procedure.sql)
 📁 [테스트 데이터 바로가기](./PROCEDURE/testData.sql)
 📁 [테스트 케이스 전체 (22개) 바로가기](./PROCEDURE/testCase.sql)
