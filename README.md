@@ -1,5 +1,3 @@
-[message (9).txt](https://github.com/user-attachments/files/20648243/message.9.txt)# be16-1st-Nullbase-Intelli-B
-
 ## 🚀 행동 기반 커리어 매칭 DB 프로젝트 - Intelli-B
 
 <p align="center">
@@ -18,8 +16,8 @@ Intelli-B는 “Intelligent”와 “Bridge”의 합성어로,
 IntelliJ처럼 직관적이고 강력한 사용 경험을 제공하며,
 AI를 통해 개인의 역량을 분석하고, 기업의 니즈에 정밀하게 매칭되도록 지원합니다.
 
-
 사용자의 **실질적인 협업 행동 데이터**를 기반으로, 개인과 기업 간의 정교한 커리어 매칭을 가능하게 하는 **DB 중심의 프로젝트**입니다.  
+
 기존 자가 응답형 성향 테스트의 한계를 극복하고, 실제 과제 수행을 통한 행동 기반 데이터를 수집·분석하여, 보다 **신뢰도 높은 직무-조직문화 매칭**을 추구합니다.
 
 
