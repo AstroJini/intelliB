@@ -110,6 +110,25 @@
 ## 🔎 4. DB 모델링
 ![DB_AI_FIXED (2)](https://github.com/user-attachments/assets/2a365604-e41c-4d87-adbb-b24c9698123e)
 
+### 데이터베이스 아키텍처 및 복제 구성
+
+#### 1. Master-Slave 구조
+- **Master 노드**  
+  - 모든 쓰기 작업(INSERT, UPDATE, DELETE)을 처리하여 데이터 정합성을 보장합니다.  
+  - 변경 내역을 바이너리 로그(binlog)에 기록하여 복제를 준비합니다.  
+- **Slave 노드**  
+  - Master의 binlog를 실시간으로 수신하여 동일한 데이터를 유지합니다.  
+  - 읽기 전용(SELECT) 트래픽을 처리하여 읽기 처리량을 분산합니다.  
+- **프록시 계층**  
+  - 애플리케이션과 Master/Slave 클러스터 사이에 위치하며, 쿼리 유형에 따라 자동으로 라우팅을 수행합니다.  
+  - 쓰기 트래픽은 Master로, 읽기 트래픽은 Slave로 전달함으로써 노드별 역할을 명확히 분리합니다.  
+
+#### 2. 읽기·쓰기 분리(Read/Write Splitting)  
+- 애플리케이션에서는 별도의 커넥션 풀을 구성하여 쓰기용과 읽기용 연결을 분리 관리합니다.  
+- 프록시 계층이 각 쿼리의 특성을 분석하여 적절한 노드로 전달하며, 애플리케이션 코드에는 변경이 최소화됩니다. 
+
+#### Replica 시연 영상
+ - [시연영상](https://drive.google.com/file/d/1lpBg8DbP7Qv6F3YsMLQBx8KGE51GFP5U/view?usp=drive_link)
 
 ---
 
