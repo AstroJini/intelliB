@@ -106,7 +106,7 @@ AI를 통해 개인의 역량을 분석하고, 기업의 니즈에 정밀하게 
 ## 📋 2. WBS
 
 > ✅ WBS
-![image](https://github.com/user-attachments/assets/5c37f5ef-f581-4563-8e6a-21801e7a11b6)
+![image](https://github.com/user-attachments/assets/e3ed670c-a7a4-48bf-be13-87f6d5304e4a)
 [스프레드시트 링크](https://docs.google.com/spreadsheets/d/1My5BWvqLY4lW46_LrQkGH1FloUsK28uX1NTKQ4Nn3cI/edit?usp=sharing)
 
 
